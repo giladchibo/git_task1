@@ -75,6 +75,16 @@ label {
     cursor: pointer;
     transition: 0.5s ease-in-out;
 }
+#config{
+    display: flex;
+    flex-direction:row;
+    margin-left:40%;
+    width: 30%;
+    margin-top: -5%;
+}
+#user_config{
+    font-size:1em;
+}
 
 input {
     width: 50%;

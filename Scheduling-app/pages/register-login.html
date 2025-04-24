@@ -16,8 +16,8 @@
 <body>
 	<nav class="top-nav">
         <div class="nav-links">
-            <a href="/create-task.html" class="nav-link">Create Task</a>
-			<a href="/account.html" class="nav-link">Account</a>
+            <!-- <a href="/create-task.html" class="nav-link">Create Task</a>
+			<a href="/account.html" class="nav-link">Account</a> -->
         </div>
     </nav>
     <div class="main">  	
@@ -29,8 +29,15 @@
 					<input type="text" name="name" placeholder="Full Name" required="">
 					<input type="email" name="email" placeholder="Email" required="">
                     <input type="number" name="phone" placeholder="Phone" required="">
-                    <input type="text" name="position" placeholder="Position" required="">
+                    <!-- <input type="text" name="position" placeholder="Position" required=""> -->
 					<input type="password" name="pswd" placeholder="Password" required="">
+					<label id="user_config" style="text-decoration: underline;">User Config</label>
+					<div id="config">
+						<label id="user_config">Admin</label>
+						<input type="radio" name="user_config" value="admin">
+						<label id="user_config">User</label>
+						<input type="radio" name="user_config" value="user" checked>
+					</div>
 					<button>Sign up</button>
 				</form>
 			</div>

@@ -36,28 +36,37 @@ signupForm.addEventListener('submit', (e) => {
     const username = signupForm.querySelector('input[name="name"]').value;
     const email = signupForm.querySelector('input[name="email"]').value;
     const phone = signupForm.querySelector('input[name="phone"]').value;
-    const gender = signupForm.querySelector('input[name="gender"]').value;
+    // const Position = signupForm.querySelector('input[name="Position"]').value;
     const password = signupForm.querySelector('input[name="pswd"]').value;
-
+    const user_config = document.getElementsByName("user_config");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert('Please enter a valid email address');
         return;
     }
-
+    
     if (users.some(user => user.email === email)) {
         alert('User with this email already exists');
         return;
     }
 
+    let selectedConfig = "";
+    for(let i = 0; i < user_config.length; i++){
+        if(user_config[i].checked){
+            selectedConfig = user_config[i].value;
+            console.log(selectedConfig)
+        }
+    }
+    
     // Create new user
     const newUser = {
         id: Date.now().toString(),
         username,
         email,
         phone,
-        gender,
+        // gender,
         password,
+        selectedConfig,
         profilePic: profilePicDataUrl
     };
 
