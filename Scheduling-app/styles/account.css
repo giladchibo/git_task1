@@ -1,0 +1,153 @@
+/* Ensure main container is centered and responsive */
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px; /* Slightly wider for better layout */
+    min-height: 700px; /* Ensure enough space for content */
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for modern look */
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* User details section */
+.user-details {
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px); /* Glassmorphism effect */
+}
+
+/* User tasks section */
+.user-tasks {
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Match user-details */
+    border-radius: 10px;
+}
+
+/* Style for section labels */
+.user-details label, .user-tasks label {
+    font-size: 2em; /* Slightly smaller than register-login */
+    color: #fff;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+}
+
+/* Center form elements */
+#accountForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* Consistent spacing */
+}
+
+/* Style for profile picture */
+.preview-pic {
+    width: 120px;
+    height: 120px;
+    border: 4px solid #6d44b8; /* Vibrant border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    transition: transform 0.3s ease; /* Smooth scaling */
+}
+
+.preview-pic:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Style for form inputs */
+#accountForm input:not([type="file"]) {
+    width: 70%;
+    max-width: 300px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#accountForm input:focus {
+    background: #fff;
+    transform: scale(1.02); /* Subtle focus effect */
+}
+
+/* Style for file input */
+.profile-pic-input {
+    width: 70%;
+    max-width: 300px;
+    padding: 8px;
+    background: transparent;
+    color: #fff;
+}
+
+/* Style for user config section */
+#config {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+#config label {
+    font-size: 1.1em;
+    color: #fff;
+}
+
+/* Style for update button */
+#accountForm button {
+    width: 70%;
+    max-width: 300px;
+    padding: 12px;
+    background: #573b8a;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#accountForm button:hover {
+    background: #6d44b8;
+    transform: translateY(-2px); /* Lift effect */
+}
+
+/* Styles for task items */
+.task-item {
+    background: #573b8a; /* Default color, overridden by priority */
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    color: #fff;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Card-like shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-item:hover {
+    transform: translateY(-3px); /* Lift on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+}
+
+/* Styles for no-tasks message */
+.user-tasks p {
+    color: #fff;
+    font-size: 1.2em;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .main {
+        width: 90%;
+        padding: 15px;
+    }
+
+    #accountForm input:not([type="file"]), #accountForm button {
+        width: 90%;
+    }
+
+    .preview-pic {
+        width: 100px;
+        height: 100px;
+    }
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Account</title>
+    <!-- Bootstrap CSS for responsive design -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Jost font, consistent with register-login -->
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <!-- Base CSS from register-login -->
+    <link rel="stylesheet" href="../styles/register-login.css">
+    <!-- Specific CSS for account page -->
+    <link rel="stylesheet" href="../styles/account.css">
+</head>
+<body>
+    <!-- Top navigation with logout button -->
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="#" id="logout" class="nav-link">Logout</a>
+        </div>
+    </nav>
+    <!-- Main container, styled like register-login -->
+    <div class="main">
+        <!-- User details section -->
+        <div class="user-details">
+            <label>User Account</label>
+            <form id="accountForm">
+                <!-- Profile picture preview -->
+                <img id="profilePicPreview" class="preview-pic" src="" alt="Profile Picture">
+                <!-- Input for uploading new profile picture -->
+                <input type="file" id="profilePicInput" accept="image/*" class="profile-pic-input">
+                <!-- Form fields for user details -->
+                <input type="text" id="username" placeholder="Full Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="number" id="phone" placeholder="Phone" required>
+                <!-- User configuration options (admin/user) -->
+                <div id="config">
+                    <label>Admin</label>
+                    <input type="radio" name="user_config" value="admin">
+                    <label>User</label>
+                    <input type="radio" name="user_config" value="user">
+                </div>
+                <!-- Button to update details -->
+                <button type="submit">Update Details</button>
+            </form>
+        </div>
+        <!-- User tasks section -->
+        <div class="user-tasks">
+            <label>Your Tasks</label>
+            <div id="tasksList"></div>
+        </div>
+    </div>
+    <!-- Bootstrap JS and jQuery for dynamic functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+    <!-- Account page JavaScript -->
+    <script src="../scripts/account.js"></script>
+</body>
+</html>
