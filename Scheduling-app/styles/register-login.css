@@ -188,3 +188,12 @@ button:hover {
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
+
+#config {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 10px;
+}
+

@@ -101,7 +101,7 @@ loginForm.addEventListener('submit', (e) => {
         const { password, ...userWithoutPassword } = user;
         localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
      
-        window.location.href = '../pages/home.html';
+        window.location.href = '../pages/tasks.html';
     } else {
         alert('Invalid email or password');
     }
@@ -111,6 +111,6 @@ loginForm.addEventListener('submit', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser) {
-        window.location.href = '../pages/home.html';
+        window.location.href = '../pages/tasks.html';
     }
 });
