@@ -17,6 +17,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navDropdown">
                     <li><a class="dropdown-item" href="#" id="createTaskBtn">New Task</a></li>
+                    <li><a class="dropdown-item" href="#" id="my_tasks" style="display: none;">My Tasks</a></li>
                     <li><a class="dropdown-item" href="#" id="accountbtn" style="display: none;">Account</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item text-danger" href="#" id="logoutBtn" style="display: none;">Logout</a></li>
@@ -111,7 +112,7 @@
                             <label for="taskStatus">Status</label>
                             <select class="form-control" id="taskStatus" required>
                                 <option value="">-----</option>
-                                <option value="pending">New</option>
+                                <option value="new">New</option>
                                 <option value="in-progress">In Progress</option>
                                 <option value="completed">Completed</option>
                             </select>

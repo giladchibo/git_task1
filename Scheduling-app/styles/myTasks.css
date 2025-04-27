@@ -1,0 +1,24 @@
+body{
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+}
+h1{
+    text-align: center;
+    color: #fff;
+    text-decoration: underline;
+}
+
+#tasksContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 5%;
+    
+    
+}
+
+#innerContainer{
+    color: #fff;
+    text-align: center;
+    margin-top: 10%;
+    scale: 3;
+}

@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const accountBtn = document.getElementById('accountbtn');
     const saveTaskBtn = document.getElementById('saveTask');
     const taskCounter = document.getElementById('taskCounter'); // Bubble that shows number of user's tasks
-
+    const myTasksBtn = document.getElementById('my_tasks');
+    
     // Get current logged-in user from localStorage
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         logoutBtn.style.display = 'inline-block';
         accountBtn.style.display = 'inline-block';
+        myTasksBtn.style.display = 'inline-block';
     }
 
     // Check if current user is an Admin
@@ -38,6 +40,14 @@ document.addEventListener('DOMContentLoaded', function () {
         displayTasks();
     });
 
+    // Open Account Page
+    accountBtn.addEventListener('click', () => {
+        window.location.href = 'account.html';
+    });
+    // Open my tasks Page
+    myTasksBtn.addEventListener('click', () => {
+        window.location.href = 'myTasks.html';
+    });
     // Open Account Page
     accountBtn.addEventListener('click', () => {
         window.location.href = 'account.html';
