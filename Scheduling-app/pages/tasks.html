@@ -13,6 +13,7 @@
             <div class="dropdown">
                 <button class="btn nav-link dropdown-toggle" type="button" id="navDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Menu
+                    <span id="taskCounter" class="badge bg-primary ms-2"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navDropdown">
                     <li><a class="dropdown-item" href="#" id="createTaskBtn">New Task</a></li>
@@ -25,6 +26,9 @@
     </nav>
 
     <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">Scheduled Weekly Tasks</h2>
+        </div>
         <div class="d-flex justify-content-between align-items-center mb-3" id="weekNavWrapper">
             <button class="btn week-nav-btn" id="prevWeekBtn">← Previous Week</button>
             <h4 class="text-center mb-0 flex-grow-1" id="weekRangeLabel"></h4>

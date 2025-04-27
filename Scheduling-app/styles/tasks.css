@@ -268,7 +268,6 @@ tbody td:first-child {
 thead th:first-child {
     z-index: 3;
 }
-
 @media (max-width: 576px) {
     .container {
         padding: 15px;
@@ -282,7 +281,7 @@ thead th:first-child {
     }
 
     .task-cell {
-        min-height: 180px;
+        min-height: 200px;
         min-width: 160px;
     }
 

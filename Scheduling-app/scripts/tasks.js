@@ -1,10 +1,11 @@
-
 document.addEventListener('DOMContentLoaded', function () {
+    // important HTML elements
     const taskForm = document.getElementById('taskForm');
     const logoutBtn = document.getElementById('logoutBtn');
     const accountBtn = document.getElementById('accountbtn');
     const saveTaskBtn = document.getElementById('saveTask');
-    
+    const taskCounter = document.getElementById('taskCounter'); // Bubble that shows number of user's tasks
+
     // Get current logged-in user from localStorage
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.show();
         });
     }
+
     // Get all dates for the current week
     function getWeekDates(offset = 0) {
         const today = new Date();
@@ -114,19 +116,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // load all tasks into the table
     function displayTasks() {
         generateTimeSlots();
-
+    
         const weekDates = getWeekDates(weekOffset);
+        let userTaskCount = 0;      // how many tasks belong to user
+        let userCompletedCount = 0; // how many tasks completed by user
+    
         tasks.forEach(task => {
             // Show all tasks for admin, only own tasks for normal user
             if (!isAdmin && task.creator !== currentUser.username) return;
-
+    
             const taskDate = new Date(task.date);
             const matchIndex = weekDates.findIndex(d =>
                 d.toDateString() === taskDate.toDateString()
             );
-
+    
             if (matchIndex === -1) return;
-
+    
             const cell = document.querySelector(`td[data-time="${task.startTime}"][data-day="${matchIndex}"]`);
             if (cell) {
                 const isCompleted = task.status === 'completed';
@@ -137,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <button class="btn btn-sm btn-danger delete-task" data-task-id="${task.id}">Delete</button>
                     </div>
                 `;
-
+    
                 cell.innerHTML = `
                     <div class="task-item priority-${task.priority.toLowerCase()} ${isCompleted ? 'status-completed' : ''}" data-task-id="${task.id}">
                         <div class="task-title fw-bold">${task.title}</div>
@@ -149,8 +154,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 `;
             }
+    
+            //count user's own tasks
+            if (task.creator === currentUser.username) {
+                userTaskCount++;
+                if (task.status === 'completed') {
+                    userCompletedCount++;
+                }
+            }
         });
+    
+        // Update the counter
+        if (taskCounter) {
+            taskCounter.textContent = `${userTaskCount} (${userCompletedCount} ✅)`;
+        }
     }
+    
 
     // Save task (Create new or Update existing)
     saveTaskBtn.addEventListener('click', function () {
