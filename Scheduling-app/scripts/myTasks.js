@@ -29,7 +29,7 @@ for(let i=0; i< tasks.length; i++){
  function getPriorityColor(priority) {
     switch (priority) {
         case 'high': return '#e74c3c'; // Red for high priority
-        case 'medium': return '#e67e22'; // Orange for medium priority
+        case 'medium': return '#356be7'; // Blue for medium priority
         case 'low': return '#2ecc71'; // Green for low priority
         default: return '#573b8a'; // Purple as default
     }

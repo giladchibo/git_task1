@@ -74,44 +74,44 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Details have been updated successfully!');
     });
 
-    // Display user tasks
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const userTasks = tasks.filter(task => task.createdBy === currentUser.email); // Filter tasks by creator
-    const tasksList = document.getElementById('tasksList');
-    if (userTasks.length === 0) {
-        // Show message if no tasks are assigned
-        tasksList.innerHTML = '<p>There are no tasks associated with you.</p>';
-    } else {
-        // Display each task
-        userTasks.forEach(task => {
-            const taskDiv = document.createElement('div');
-            taskDiv.className = 'task-item';
-            taskDiv.style.background = getPriorityColor(task.priority); // Set color based on priority
-            taskDiv.innerHTML = `
-                <strong>${task.description}</strong><br>
-                Date: ${task.date}<br>
-                Hour: ${task.time}<br>
-                Priority: ${task.priority}<br>
-                Status: ${task.status}
-            `;
-            tasksList.appendChild(taskDiv);
-        });
-    }
+//     // Display user tasks
+//     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+//     const userTasks = tasks.filter(task => task.createdBy === currentUser.email); // Filter tasks by creator
+//     const tasksList = document.getElementById('tasksList');
+//     if (userTasks.length === 0) {
+//         // Show message if no tasks are assigned
+//         tasksList.innerHTML = '<p>There are no tasks associated with you.</p>';
+//     } else {
+//         // Display each task
+//         userTasks.forEach(task => {
+//             const taskDiv = document.createElement('div');
+//             taskDiv.className = 'task-item';
+//             taskDiv.style.background = getPriorityColor(task.priority); // Set color based on priority
+//             taskDiv.innerHTML = `
+//                 <strong>${task.description}</strong><br>
+//                 Date: ${task.date}<br>
+//                 Hour: ${task.time}<br>
+//                 Priority: ${task.priority}<br>
+//                 Status: ${task.status}
+//             `;
+//             tasksList.appendChild(taskDiv);
+//         });
+//     }
 
-    // Function to get color based on task priority
-    function getPriorityColor(priority) {
-        switch (priority) {
-            case 'High': return '#e74c3c'; // Red for high priority
-            case 'Medium': return '#e67e22'; // Orange for medium priority
-            case 'Low': return '#2ecc71'; // Green for low priority
-            default: return '#573b8a'; // Purple as default
-        }
-    }
+//     // Function to get color based on task priority
+//     function getPriorityColor(priority) {
+//         switch (priority) {
+//             case 'High': return '#e74c3c'; // Red for high priority
+//             case 'Medium': return '#e67e22'; // Orange for medium priority
+//             case 'Low': return '#2ecc71'; // Green for low priority
+//             default: return '#573b8a'; // Purple as default
+//         }
+//     }
 
-    // Handle logout
-    document.getElementById('logout').addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('currentUser'); // Remove current user
-        window.location.href = '../pages/register-login.html'; // Redirect to login page
-    });
-});
+//     // Handle logout
+//     document.getElementById('logout').addEventListener('click', (e) => {
+//         e.preventDefault();
+//         localStorage.removeItem('currentUser'); // Remove current user
+//         window.location.href = '../pages/register-login.html'; // Redirect to login page
+//     });
+// });
