@@ -11,10 +11,13 @@
     <nav class="top-nav">
         <div class="nav-links" id="navLinks">
             <div class="dropdown">
-                <button class="btn nav-link dropdown-toggle" type="button" id="navDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="navDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Menu
-                    <span id="taskCounter" class="badge bg-primary ms-2"></span>
                 </button>
+                
+                <div id="taskCounterWrapper" class="text-center mt-2">
+                    <span id="taskCounter" class="badge bg-primary"></span>
+                </div>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navDropdown">
                     <li><a class="dropdown-item" href="#" id="createTaskBtn">New Task</a></li>
                     <li><a class="dropdown-item" href="#" id="my_tasks" style="display: none;">My Tasks</a></li>
@@ -30,12 +33,13 @@
         <div class="text-center mb-4">
             <h2 class="fw-bold text-primary">Scheduled Weekly Tasks</h2>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-3" id="weekNavWrapper">
+        <div class="d-flex align-items-center justify-content-between flex-wrap mb-3" id="weekNavWrapper">
             <button class="btn week-nav-btn" id="prevWeekBtn">← Previous Week</button>
-            <h4 class="text-center mb-0 flex-grow-1" id="weekRangeLabel"></h4>
+            <div class="flex-grow-1 text-center">
+                <h4 class="mb-0" id="weekRangeLabel"></h4>
+            </div>
             <button class="btn week-nav-btn" id="nextWeekBtn">Next Week →</button>
         </div>
-
         <div class="table-responsive">
             <table class="table table-bordered text-center">
                 <thead>
@@ -68,7 +72,7 @@
                         <input type="hidden" id="taskId" />
 
                         <div class="form-group mb-3">
-                            <label for="taskCreator">Creator</label>
+                            <label for="taskCreator">Created By</label>
                             <input type="text" class="form-control" id="taskCreator" required />
                         </div>
 
@@ -78,7 +82,7 @@
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="taskDescription">Description</label>
+                            <label for="taskDescription">Description (Optional)</label>
                             <input type="text" class="form-control" id="taskDescription" />
                         </div>
 
@@ -90,11 +94,37 @@
                         <div class="form-group mb-3 row">
                             <div class="col">
                                 <label for="taskStartTime">Start Time</label>
-                                <input type="time" class="form-control" id="taskStartTime" required />
+                                <select class="form-control" id="taskStartTime" required>
+                                    <option value="">Select time</option>
+                                    <option value="08:00">8:00 AM</option>
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="13:00">1:00 PM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="15:00">3:00 PM</option>
+                                    <option value="16:00">4:00 PM</option>
+                                    <option value="17:00">5:00 PM</option>
+                                    <!-- <option value="18:00">6:00 PM</option> -->
+                                </select>
                             </div>
                             <div class="col">
                                 <label for="taskEndTime">End Time</label>
-                                <input type="time" class="form-control" id="taskEndTime" required />
+                                <select class="form-control" id="taskEndTime" required>
+                                    <option value="">Select time</option>
+                                    <option value="09:00">9:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="13:00">1:00 PM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="15:00">3:00 PM</option>
+                                    <option value="16:00">4:00 PM</option>
+                                    <option value="17:00">5:00 PM</option>
+                                    <option value="18:00">6:00 PM</option>
+                                    <!-- <option value="19:00">7:00 PM</option> -->
+                                </select>
                             </div>
                         </div>
 
@@ -121,9 +151,10 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" id="saveTask">Save</button>
                 </div>
+                
             </div>
         </div>
     </div>

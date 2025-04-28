@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     margin: 0;
     padding: 0;
@@ -5,9 +6,10 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-family: "Jost", sans-serif;
-    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    background: linear-gradient(135deg, #0f0c29 0%, #806a95 50%, #24243e 100%);
 }
 
+/* Layout */
 .container {
     margin-top: 80px;
     background: rgba(255, 255, 255, 0.95);
@@ -19,6 +21,17 @@ body {
     width: 95%;
 }
 
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    max-height: 900px;
+    overflow-y: auto;
+}
+
+/* Navigation */
 .top-nav {
     position: fixed;
     top: 0;
@@ -37,42 +50,38 @@ body {
     text-decoration: none;
     padding: 0.8rem 1.5rem;
     border-radius: 8px;
-    background: rgba(102, 81, 141, 0.9);
+    background: rgba(32, 52, 141, 0.9);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 500;
     letter-spacing: 0.5px;
 }
 
 .nav-link:hover {
-    background: rgba(109, 68, 184, 1);
-    color: white;
+    background: rgba(32, 108, 141, 1);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: white;
 }
 
+/* Table Styles */
 .table-bordered thead td, 
-.table-bordered thead th {
-    border-bottom-width: 2px;
+.table-bordered thead th,
+.table thead th {
     background-color: #f8f9fa;
     color: #495057;
     font-weight: 600;
     padding: 1.5rem;
     text-align: center;
-    min-width: 200px;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
     position: sticky;
     top: 0;
     z-index: 2;
     font-size: 1.1rem;
 }
 
-.table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-    padding: 1.5rem;
-}
-
-.table thead th br {
-    margin-top: 8px;
+thead th:first-child {
+    z-index: 3;
 }
 
 .table-bordered td, 
@@ -80,10 +89,25 @@ body {
     border: 1px solid #e9ecef;
 }
 
+tbody th, 
+tbody td:first-child {
+    position: sticky;
+    left: 0;
+    background: #fff;
+    z-index: 1;
+    min-width: 120px;
+    font-size: 1.1rem;
+}
+
+.table thead th br {
+    margin-top: 8px;
+}
+
+/* Task Cells & Items */
 .task-cell {
     cursor: pointer;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 1);
+    background: #fff;
     min-height: 200px;
     padding: 15px;
     vertical-align: top;
@@ -105,32 +129,20 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.priority-high { 
-    border-left: 4px solid #dc3545;
-    background: linear-gradient(to right, rgba(220, 53, 69, 0.05), white);
-}
-
-.priority-medium { 
-    border-left: 4px solid #0d6efd;
-    background: linear-gradient(to right, rgba(13, 110, 253, 0.05), white);
-}
-
-.priority-low { 
-    border-left: 4px solid #198754;
-    background: linear-gradient(to right, rgba(25, 135, 84, 0.05), white);
-}
-
-.status-completed {
-    opacity: 0.75;
-    background: #f8f9fa;
-    pointer-events: none;
-}
-
+/* Task Details */
 .task-title {
     color: #2c3e50;
     font-weight: 600;
     font-size: 1.2em;
     margin-bottom: 10px;
+    word-break: break-word;
+}
+
+.task-description,
+.task-status,
+.task-time,
+.task-creator {
+    word-break: break-word;
 }
 
 .task-description {
@@ -141,10 +153,10 @@ body {
 }
 
 .task-status {
+    color: #495057;
     font-size: 1em;
     font-weight: 500;
     margin-bottom: 10px;
-    color: #495057;
 }
 
 .task-time {
@@ -160,11 +172,45 @@ body {
     margin-bottom: 10px;
 }
 
+/* Priority Indicators */
+.priority-high { 
+    border-left: 4px solid #dc3545;
+    background: linear-gradient(to right, rgba(220, 53, 69, 0.05), white);
+}
+
+.priority-medium { 
+    border-left: 4px solid #0d6efd;
+    background: linear-gradient(to right, rgba(13, 110, 253, 0.05), white);
+}
+
+.priority-low { 
+    border-left: 4px solid #198754;
+    background: linear-gradient(to right, rgba(25, 135, 84, 0.05), white);
+}
+
+/* Completed Status */
+.status-completed {
+    opacity: 0.75;
+    background: #f8f9fa;
+    pointer-events: none;
+}
+
+.task-item.status-completed {
+    background-color: #d4edda;
+    border: 2px solid #28a745;
+    color: #155724;
+    border-radius: 6px;
+    padding: 5px;
+    font-style: italic;
+}
+
+/* Buttons */
 .btn-sm {
     padding: 0.35rem 1rem;
     font-size: 0.95rem;
     border-radius: 6px;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .btn-primary {
@@ -187,6 +233,7 @@ body {
     border-color: #bd2130;
 }
 
+/* Dropdown */
 .dropdown-menu {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -207,13 +254,16 @@ body {
     border-top-color: rgba(0, 0, 0, 0.1);
 }
 
+/* Week Navigation */
 #weekNavWrapper {
     width: 100%;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .week-nav-btn {
-    background-color: #573b8a;
+    background-color: #206c8d;
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -223,10 +273,11 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 1.1rem;
+    white-space: nowrap;
 }
 
 .week-nav-btn:hover {
-    background-color: #6d44b8;
+    background-color: #3dec75;
     transform: translateY(-1px);
 }
 
@@ -234,62 +285,148 @@ body {
     color: #2c3e50;
     font-weight: 600;
     font-size: 1.4rem;
+    text-align: center;
+    width: 100%;
 }
 
-.table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-    max-height: 900px;
-    overflow-y: auto;
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .container {
+        padding: 20px;
+        margin-top: 70px;
+    }
+    .table-bordered thead td, 
+    .table-bordered thead th {
+        padding: 1.2rem;
+        min-width: 180px;
+    }
+    .task-cell {
+        min-height: 180px;
+    }
 }
 
-.task-item.status-completed {
-    background-color: #d4edda;
-    border: 2px solid #28a745;
-    color: #155724;
-    border-radius: 6px;
-    padding: 5px;
-    font-style: italic;
-}
-
-tbody th, 
-tbody td:first-child {
-    position: sticky;
-    left: 0;
-    background: #fff;
-    z-index: 1;
-    min-width: 120px;
-    font-size: 1.1rem;
-}
-
-thead th:first-child {
-    z-index: 3;
-}
-@media (max-width: 576px) {
+@media (max-width: 992px) {
     .container {
         padding: 15px;
         margin-top: 60px;
+        width: 98%;
     }
-
     .week-nav-btn {
-        padding: 8px 12px;
-        font-size: 14px;
-        min-width: 120px;
-    }
-
-    .task-cell {
-        min-height: 200px;
-        min-width: 160px;
-    }
-
-    .table-bordered thead td, 
-    .table-bordered thead th {
-        min-width: 160px;
-        padding: 1rem;
+        padding: 0.6rem 1.2rem;
+        min-width: 150px;
         font-size: 1rem;
+    }
+    #weekRangeLabel {
+        font-size: 1.2rem;
+        order: -1;
+        margin-bottom: 1rem;
+    }
+    .task-title {
+        font-size: 1.1em;
+    }
+    .task-description {
+        font-size: 0.9em;
     }
 }
 
+@media (max-width: 768px) {
+    .container {
+        margin-top: 50px;
+    }
+    .table-bordered thead td, 
+    .table-bordered thead th {
+        padding: 1rem;
+        min-width: 160px;
+        font-size: 0.9rem;
+    }
+    .task-cell {
+        min-height: 160px;
+        padding: 10px;
+    }
+    .task-item {
+        padding: 12px;
+    }
+    .btn-sm {
+        padding: 0.25rem 0.75rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 10px;
+        margin-top: 45px;
+    }
+    .week-nav-btn {
+        padding: 0.5rem 1rem;
+        min-width: 120px;
+        font-size: 0.9rem;
+    }
+    #weekRangeLabel {
+        font-size: 1.1rem;
+    }
+    .table-bordered thead td, 
+    .table-bordered thead th {
+        padding: 0.8rem;
+        min-width: 140px;
+        font-size: 0.85rem;
+    }
+    .task-cell {
+        min-height: 140px;
+    }
+    .task-title {
+        font-size: 1em;
+    }
+    .task-description,
+    .task-status,
+    .task-time,
+    .task-creator {
+        font-size: 0.85em;
+    }
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: none;
+    }
+    .container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: none;
+        box-shadow: none;
+    }
+    .top-nav,
+    .btn-sm,
+    .modal {
+        display: none !important;
+    }
+    .table-responsive {
+        overflow: visible;
+        max-height: none;
+    }
+    .task-item {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+#weekNavWrapper {
+    gap: 1rem;
+}
+
+#weekNavWrapper .week-nav-btn {
+    flex-shrink: 0;
+    height: 100%;
+}
+
+#weekRangeLabel {
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.5; 
+    margin: 0;
+}

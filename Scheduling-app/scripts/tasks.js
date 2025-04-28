@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // important HTML elements
+    // Important HTML elements
     const taskForm = document.getElementById('taskForm');
     const logoutBtn = document.getElementById('logoutBtn');
     const accountBtn = document.getElementById('accountbtn');
     const saveTaskBtn = document.getElementById('saveTask');
-    const taskCounter = document.getElementById('taskCounter'); // Bubble that shows number of user's tasks
+    const taskCounter = document.getElementById('taskCounter');
     const myTasksBtn = document.getElementById('my_tasks');
-    
+
     // Get current logged-in user from localStorage
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -44,13 +44,35 @@ document.addEventListener('DOMContentLoaded', function () {
     accountBtn.addEventListener('click', () => {
         window.location.href = 'account.html';
     });
-    // Open my tasks Page
+     // Open my tasks Page
     myTasksBtn.addEventListener('click', () => {
-        window.location.href = 'myTasks.html';
+    window.location.href = 'myTasks.html';
     });
-    // Open Account Page
-    accountBtn.addEventListener('click', () => {
-        window.location.href = 'account.html';
+
+    // Handle task cell click
+    document.addEventListener('click', function(e) {
+        const cell = e.target.closest('.task-cell');
+        if (!cell || e.target.closest('.task-item')) return; // Ignore clicks on existing tasks
+
+        const time = cell.dataset.time;
+        const dayIndex = cell.dataset.day;
+        const weekDates = getWeekDates(weekOffset);
+        const selectedDate = weekDates[dayIndex];
+
+        // Reset and prepare form
+        editingTaskId = null;
+        taskForm.reset();
+        
+        // Set default values
+        document.getElementById('taskCreator').value = currentUser.username;
+        document.getElementById('taskDate').value = selectedDate.toISOString().split('T')[0];
+        document.getElementById('taskStartTime').value = time;
+        document.getElementById('taskStatus').value = 'new';
+        document.getElementById('taskModalLabel').textContent = 'Create New Task';
+
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('taskModal'));
+        modal.show();
     });
 
     // Open Create Task Modal
@@ -60,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
             editingTaskId = null;
             taskForm.reset();
             document.getElementById('taskCreator').value = currentUser.username;
+            document.getElementById('taskModalLabel').textContent = 'Create New Task';
             const modal = new bootstrap.Modal(document.getElementById('taskModal'));
             modal.show();
         });
@@ -88,12 +111,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update the label showing current week range
     function updateWeekRangeLabel(weekDates) {
-        const start = formatDateLabel(weekDates[0]);
-        const end = formatDateLabel(weekDates[6]);
+        const start = weekDates[0].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        const end = weekDates[6].toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         document.getElementById('weekRangeLabel').textContent = `${start} - ${end}`;
     }
-
-    // Generate the time slots grid based on selected week
+    
     function generateTimeSlots() {
         const tbody = document.getElementById('scheduleBody');
         tbody.innerHTML = '';
@@ -107,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <th class="text-uppercase">${date.toLocaleDateString('en-US', { weekday: 'long' })}<br>${formatDateLabel(date)}</th>
             `).join('');
 
+        // Generate slots for hour intervals only
         for (let hour = 8; hour <= 18; hour++) {
             const tr = document.createElement('tr');
             const time = `${hour.toString().padStart(2, '0')}:00`;
@@ -128,11 +151,11 @@ document.addEventListener('DOMContentLoaded', function () {
         generateTimeSlots();
     
         const weekDates = getWeekDates(weekOffset);
-        let userTaskCount = 0;      // how many tasks belong to user
+        let userTaskCount = 0; // how many tasks belong to user
         let userCompletedCount = 0; // how many tasks completed by user
     
         tasks.forEach(task => {
-            // Show all tasks for admin, only own tasks for normal user
+        // Show all tasks for admin, only own tasks for normal user
             if (!isAdmin && task.creator !== currentUser.username) return;
     
             const taskDate = new Date(task.date);
@@ -142,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
             if (matchIndex === -1) return;
     
+            // Find the cell that matches the start time
             const cell = document.querySelector(`td[data-time="${task.startTime}"][data-day="${matchIndex}"]`);
             if (cell) {
                 const isCompleted = task.status === 'completed';
@@ -153,49 +177,70 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 `;
     
-                cell.innerHTML = `
+                cell.innerHTML += `
                     <div class="task-item priority-${task.priority.toLowerCase()} ${isCompleted ? 'status-completed' : ''}" data-task-id="${task.id}">
                         <div class="task-title fw-bold">${task.title}</div>
-                        <div class="task-description">${task.description}</div>
+                        <div class="task-description">${task.description || ''}</div>
                         <div class="task-status">Status: ${task.status}</div>
                         <div class="task-time">${task.startTime} - ${task.endTime}</div>
                         <div class="task-creator">Created by: ${task.creator}</div>
                         ${editDeleteButtons}
                     </div>
                 `;
-            }
-    
-            //count user's own tasks
-            if (task.creator === currentUser.username) {
-                userTaskCount++;
-                if (task.status === 'completed') {
-                    userCompletedCount++;
+                //count user's own tasks
+                if (task.creator === currentUser.username) {
+                    userTaskCount++;
+                    if (task.status === 'completed') {
+                        userCompletedCount++;
+                    }
                 }
             }
         });
-    
         // Update the counter
         if (taskCounter) {
-            taskCounter.textContent = `${userTaskCount} (${userCompletedCount} ✅)`;
+            taskCounter.textContent = `${userTaskCount} (Completed: ${userCompletedCount})`;
         }
     }
-    
 
     // Save task (Create new or Update existing)
     saveTaskBtn.addEventListener('click', function () {
-        const title = document.getElementById('taskTitle').value;
-        const description = document.getElementById('taskDescription').value;
+        const title = document.getElementById('taskTitle').value.trim();
+        const description = document.getElementById('taskDescription').value.trim();
         const date = document.getElementById('taskDate').value;
         const startTime = document.getElementById('taskStartTime').value;
         const endTime = document.getElementById('taskEndTime').value;
         const priority = document.getElementById('taskPriority').value;
         const status = document.getElementById('taskStatus').value;
-        const creator = document.getElementById('taskCreator').value;
+        const creator = document.getElementById('taskCreator').value.trim();
 
-        if (!title || !description || !date || !startTime || !endTime || !creator) {
+        if (!title || !date || !startTime || !endTime || !creator || !priority || !status) {
             alert('Please fill in all required fields.');
             return;
         }
+        // prevent creating task in the past
+    const taskDateTime = new Date(`${date}T${startTime}`);
+    const now = new Date();
+    if (taskDateTime < now) {
+        alert('You cannot create a task in the past!');
+        return;
+    }
+
+        // Validate end time is after start time
+        if (endTime <= startTime) {
+            alert('End time must be after Start time!');
+            return;
+        }
+
+        const taskData = {
+            title,
+            description,
+            date,
+            startTime,
+            endTime,
+            priority,
+            status,
+            creator
+        };
 
         if (editingTaskId) {
             const taskToEdit = tasks.find(t => t.id === editingTaskId);
@@ -208,30 +253,16 @@ document.addEventListener('DOMContentLoaded', function () {
             if (index !== -1) {
                 tasks[index] = {
                     ...tasks[index],
-                    title,
-                    description,
-                    date,
-                    startTime,
-                    endTime,
-                    priority,
-                    status,
-                    creator
+                    ...taskData
                 };
             }
             editingTaskId = null;
         } else {
-            const task = {
-                id: Date.now(),
-                title,
-                description,
-                date,
-                startTime,
-                endTime,
-                priority,
-                status,
-                creator
+            const newTask = {
+                id: Date.now().toString(),
+                ...taskData
             };
-            tasks.push(task);
+            tasks.push(newTask);
         }
 
         localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -242,19 +273,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Edit/Delete Button Actions inside the Schedule
     document.getElementById('scheduleBody').addEventListener('click', function (e) {
-        const taskId = Number(e.target.closest('.task-item')?.dataset.taskId);
-        const task = tasks.find(t => t.id === taskId);
+        const taskItem = e.target.closest('.task-item');
+        if (!taskItem) return;
 
+        const taskId = taskItem.dataset.taskId;
+        const task = tasks.find(t => t.id === taskId);
+        if (!task) return;
         // Edit Task
-        if (e.target.classList.contains('edit-task') && task) {
+        if (e.target.classList.contains('edit-task')) {
             if (!canEditTask(task)) {
                 alert('You do not have permission to edit this task.');
                 return;
             }
 
             editingTaskId = taskId;
+            document.getElementById('taskModalLabel').textContent = 'Edit Task';
             document.getElementById('taskTitle').value = task.title;
-            document.getElementById('taskDescription').value = task.description;
+            document.getElementById('taskDescription').value = task.description || '';
             document.getElementById('taskDate').value = task.date;
             document.getElementById('taskStartTime').value = task.startTime;
             document.getElementById('taskEndTime').value = task.endTime;
@@ -265,22 +300,22 @@ document.addEventListener('DOMContentLoaded', function () {
             const modal = new bootstrap.Modal(document.getElementById('taskModal'));
             modal.show();
         }
-
         // Delete Task
-        if (e.target.classList.contains('delete-task') && task) {
+        if (e.target.classList.contains('delete-task')) {
             if (!canEditTask(task)) {
                 alert('You do not have permission to delete this task.');
                 return;
             }
 
             if (confirm('Are you sure you want to delete this task?')) {
+                tasks = tasks.filter(t => t.id !== taskId);
                 const index = tasks.findIndex(t => t.id === taskId);
                 if (index !== -1) {
                     tasks.splice(index, 1);
-                    localStorage.setItem('tasks', JSON.stringify(tasks));
-                    displayTasks();
-                }
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                displayTasks();
             }
+        }
         }
     });
     logoutBtn.addEventListener('click', function () {
