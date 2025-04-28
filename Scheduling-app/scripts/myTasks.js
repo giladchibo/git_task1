@@ -9,6 +9,7 @@ for(let i=0; i< tasks.length; i++){
         card.style.background = getPriorityColor(task.priority);
         card.innerHTML = `<div class="card" style="width: 18rem;">
          <div class="card-body">
+         <h5 class="card-title"><strong>Title: ${task.title}</strong></h5>
          <h5 class="card-title"><strong>description: ${task.description}</strong></h5>
          <h6 class="card-subtitle mb-2 text-body-secondary">Date: ${task.date}</h6>
          <p class="card-text">Start Time: ${task.startTime}</p>
