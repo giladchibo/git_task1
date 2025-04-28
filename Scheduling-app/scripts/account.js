@@ -46,14 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('אנא הכנס כתובת מייל תקינה');
+            alert('Please enter a valid email address !');
             return;
         }
 
         // Check if email is taken by another user
         let users = JSON.parse(localStorage.getItem('users')) || [];
         if (users.some(user => user.email === email && user.id !== currentUser.id)) {
-            alert('מייל זה כבר בשימוש על ידי חשבון אחר');
+            alert('This email is already being used by another account.');
             return;
         }
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('users', JSON.stringify(users));
         // Update current user
         localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-        alert('הפרטים עודכנו בהצלחה!');
+        alert('Details have been updated successfully!');
     });
 
     // Display user tasks
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tasksList = document.getElementById('tasksList');
     if (userTasks.length === 0) {
         // Show message if no tasks are assigned
-        tasksList.innerHTML = '<p>אין משימות משויכות אליך.</p>';
+        tasksList.innerHTML = '<p>There are no tasks associated with you.</p>';
     } else {
         // Display each task
         userTasks.forEach(task => {
@@ -89,10 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
             taskDiv.style.background = getPriorityColor(task.priority); // Set color based on priority
             taskDiv.innerHTML = `
                 <strong>${task.description}</strong><br>
-                תאריך: ${task.date}<br>
-                שעה: ${task.time}<br>
-                עדיפות: ${task.priority}<br>
-                סטטוס: ${task.status}
+                Date: ${task.date}<br>
+                Hour: ${task.time}<br>
+                Priority: ${task.priority}<br>
+                Status: ${task.status}
             `;
             tasksList.appendChild(taskDiv);
         });
